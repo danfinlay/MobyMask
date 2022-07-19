@@ -44,11 +44,11 @@ button.installButton {
 }
 
 .footer {
-  bottom:0;
-  left:0;
-  width:100%;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 90px;
-  background-color: #D0DAEE;
+  background-color: #d0daee;
 }
 
 .box {
@@ -70,7 +70,7 @@ button {
   padding: 4px;
 }
 
-.memberBox{
+.memberBox {
   background-color: rgb(192, 255, 207);
   padding: 4px;
 }

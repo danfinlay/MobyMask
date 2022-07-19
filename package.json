@@ -65,5 +65,10 @@
       "**/hardhat-ts/**"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7",
+    "eslint-config-prettier": "^7",
+    "eslint-plugin-prettier": "^4.0.0"
+  }
 }

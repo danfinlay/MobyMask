@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
-const types = require('./types')
-const { generateUtil, recoverDelegationSigner } = require('eth-delegatable-utils');
-const createTypedMessage = require('./createTypedMessage');
-const sigUtil = require('@metamask/eth-sig-util');
-const { chainId, address, name } = require('./config.json');
+const types = require("./types");
+const { generateUtil, recoverDelegationSigner } = require("eth-delegatable-utils");
+const createTypedMessage = require("./createTypedMessage");
+const sigUtil = require("@metamask/eth-sig-util");
+const { chainId, address, name } = require("./config.json");
 const CONTRACT_NAME = name;
 const util = generateUtil({
   chainId,
@@ -36,13 +36,13 @@ type Invitation = {
   key: string,
 }
 */
-const ROOT_AUTHORITY = '0xDdb18b319BE3530560eECFF962032dFAD88212d4';
+const ROOT_AUTHORITY = "0xDdb18b319BE3530560eECFF962032dFAD88212d4";
 
-export function validateInvitation (invitation) {
+export function validateInvitation(invitation) {
   if (!invitation) {
-    throw new Error('Invitation is required');
+    throw new Error("Invitation is required");
   }
-  console.log('invitation', invitation);
+  console.log("invitation", invitation);
 
   const { signedDelegations, key } = invitation;
   const wallet = new ethers.Wallet(key);
@@ -54,7 +54,7 @@ export function validateInvitation (invitation) {
   let authHash;
 
   for (let d = 0; d < signedDelegations.length; d++) {
-    console.log(`Evaluating delegation number ${d}`)
+    console.log(`Evaluating delegation number ${d}`);
     const signedDelegation = signedDelegations[d];
     const delegationSigner = recoverDelegationSigner(signedDelegation, {
       chainId,

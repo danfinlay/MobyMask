@@ -1,5 +1,6 @@
 import { Router } from "@open-rpc/server-js";
 import { ethers } from "ethers";
+import assert from "assert";
 const types = require('../react-app/src/types')
 const cors = require('cors');
 const createGanacheProvider = require('./providers/ganacheProvder');
@@ -24,7 +25,7 @@ const BASE_URI = 'https://mobymask.com/#';
 const fs = require('fs');
 const path = require('path');
 const configPath = path.join(__dirname, './config.json');
-const { mnemonic, rpcUrl } = require('./secrets.json');
+const { privateKey, mnemonic, rpcUrl, baseURI = BASE_URI } = require('./secrets.json');
 
 const openrpcDocument = require('./openrpc.json');
 const { parseOpenRPCDocument } = require("@open-rpc/schema-utils-js");
@@ -70,7 +71,13 @@ setupSigner()
   .catch(console.error);
 
 async function setupSigner () {
-  signer = ethers.Wallet.fromMnemonic(mnemonic).connect(provider);
+  if (mnemonic) {
+    signer = ethers.Wallet.fromMnemonic(mnemonic).connect(provider);
+  }
+
+  if (privateKey) {
+    signer = new ethers.Wallet(privateKey, provider)
+  }
 }
 
 async function activateServer () {
@@ -223,7 +230,7 @@ async function signDelegation () {
   }
   console.log('A SIGNED DELEGATION/INVITE LINK:');
   console.log(JSON.stringify(invitation, null, 2));
-  console.log(BASE_URI + '/members?invitation=' + encodeURIComponent(JSON.stringify(invitation)));
+  console.log(baseURI + '/members?invitation=' + encodeURIComponent(JSON.stringify(invitation)));
 }
 
 function fromHexString (hexString: string) {
